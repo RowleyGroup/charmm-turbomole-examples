@@ -1,0 +1,9 @@
+This directory contains the files for the lambda=0 window of
+a CHARMM-TURBOMOLE QM/MM thermodynamic integration simulation 
+of Mg(II) --> Zn(II) 
+
+charmm_input: CHARMM input scripts
+charmm_output: example output of sample simulation
+data: TURBOMOLE data files
+turbodir: Directory for file transfer between CHARMM and TURBOMOLE
+

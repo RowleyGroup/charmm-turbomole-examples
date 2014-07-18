@@ -1,0 +1,23 @@
+ *** WARNING: Could not read properly <logical> value for $point_charges ***
+ operating system is UNIX !
+ hostname is         cp3620
+
+   ----> a grad INTEGRAL TASK STATISTICS run will be performed ! <----
+
+
+ grad (cp3620) : TURBOMOLE V6.5( 18161 ) 13 Mar 2013 at 10:19:07
+ Copyright (C) 2013 TURBOMOLE GmbH, Karlsruhe
+
+
+    2014-07-09 09:18:06.437 
+
+ Program grad can not use the RI-J approximation.
+ Please either use the rdgrad program or delete the option $rij
+ from your control file.
+
+
+ 
+ MODTRACE: no modules on stack
+
+  Option $rij found!
+ grad ended abnormally

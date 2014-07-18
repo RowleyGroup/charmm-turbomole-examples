@@ -1,0 +1,74 @@
+Platform-MPI licensed for TURBOMOLE.
+ *** WARNING: Could not read properly <logical> value for $point_charges ***
+ operating system is UNIX !
+ hostname is         cp3620
+ grad
+
+
+ hostname is    cp3620
+
+ gradserver (cp3620) : TURBOMOLE V6.5( 18169 ) 21 Mar 2013 at 09:12:09
+ Copyright (C) 2013 TURBOMOLE GmbH, Karlsruhe
+
+
+    2014-07-08 13:13:58.945 
+
+
+                                        grad      server
+
+
+                     R.Ahlrichs, S.Brode, M.Ehrig, H.Horn
+
+
+                            Quantum Chemistry Group
+
+                        University Karlsruhe, Germany
+
+
+   ***************************************************************************
+$operating system unix                                                          
+   ***************************************************************************
+ ! Initialization MPI         :           11  tasks intended
+ !                                        11  tasks spawned
+ node process     1 runs on cp3620           1
+ node process     2 runs on cp3620           2
+ node process     3 runs on cp3620           3
+ node process     4 runs on cp3620           4
+ node process     5 runs on cp3620           5
+ node process     6 runs on cp3620           6
+ node process     7 runs on cp3620           7
+ node process     8 runs on cp3620           8
+ node process     9 runs on cp3620           9
+ node process    10 runs on cp3620          10
+ node process    11 runs on cp3620          11
+
+ keyword $2e-ints'_shell_statistics missing in file <control>
+
+ ! Tasks will be generated automatically
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+grad_mpi           000000000043ACF8  dstvij_.A                 943  dstvij.f
+grad_mpi           0000000000429CB6  stvderij_                 387  stvder.f
+grad_mpi           000000000041EE11  parder_.A                 401  parder.f
+grad_mpi           0000000000409E42  MAIN__                   1065  grad.f
+grad_mpi           00000000004058CC  Unknown               Unknown  Unknown
+libc.so.6          0000003055E1ED1D  Unknown               Unknown  Unknown
+grad_mpi           00000000004057C9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine Image              PC                Routine            Line        Source             
+grad_mpi           00000000005FB696  thirdl_.A                 159  thirdl.f
+grad_mpi   forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+grad_mpi           00000000005DBC0F  transr_                    83  transr.f
+grad_mpi           000000000059E128  gasra_                    715  gasra.f
+grad_mpi           00000000004A2F10  dasra_                    240  dasra.f
+grad_mpi           0000000000474622  djk_                      610  djk.f
+grad_mpi           00000000004687A2  jkder_                    550  jkder.f
+grad_mpi           000000000041EA46  parder_.A                 458  parder.f
+grad_mpi           0000000000409E42  MAIN__                   1065  grad.f
+grad_mpi           00000000004058CC  Unknown               Unknown  Unknown
+libc.so.6          0000003055E1ED1D  Unknown               Unknown  Unknown
+grad_mpi           00000000004057C9  Unknown               Unknown  Unknown
+MPI Application rank 7 exited before MPI_Finalize() with status 1
+04058CC  Unknown               Ugrad_mpi        libc.so.6          0000003055E1ED1D  Unknown               Unknown  Unknown
+grad_mpi           00000000004057C9  Unknown               Unknown  Unknown

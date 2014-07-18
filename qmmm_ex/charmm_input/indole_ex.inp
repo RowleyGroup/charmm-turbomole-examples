@@ -1,0 +1,72 @@
+* CHARMM 
+*
+prnlev 3
+
+!set the environment variables for TURBOMOLE
+
+!qturboexe points to the "turbo.py" script that executes TURBOMOLE
+envi qturboexe "< absolute path to /turbo.py>"
+
+!"qturbooutpath" is the directory that includes "coord", "point_charges", and "gradient" files that are 
+!copied back and forth between CHARMM and TURBOMOLE
+envi qturbooutpath  "< absolute path to > /turbodir/"
+
+!"qturboinpath" includes the input files,e.g. control, basis, that are required by TURBOMOLE
+envi qturboinpath "< absolute path to > /data/"
+
+
+stream ./charmm_input/toppar_qm.str
+
+READ sequence INDOQ 1
+generate SOL setup first none last none 
+READ sequence SWM4 451
+generate WAT setup first none last none  noangle nodihedral DRUDE DMASS 0.4 HYPE HORD 4 KHYP 40000 RHYP 0.2
+
+read coor card name ./charmm_input/indole.crd
+
+
+NBOND -
+    atom   cdiel  eps 1.0                -           !Electrostatics
+    vatom  vswitch                       -           ! VdW
+    elec   switch                        -           ! Elec
+    ctonnb 100.0 ctofnb 120.0  cutnb 160.0
+
+faster off
+
+
+!This tells CHARMM which molecules are in the QM region and
+!then it deletes the MM internal energy terms for atoms
+!in the QM region and flags these atoms to be represented using the QM model
+
+define qm sele segid SOL end
+qturbo remove sele qm end
+
+shake bonh - 
+    select .not. type D*  .and. .not. segid SOL  end - 
+    nofast
+
+cons hmcm force 5.0 refx 0.0 refy 0.0 refz 0.0 select segid SOL end
+
+MMFP
+  GEO harmonic  spherical -
+  FORCE 0.5 P1 2.25 -
+  xref 0.0 yref 0.0 zref 0.0 -
+  droff 13.0  select type OH2 end
+END
+
+tpcontrol nther 2 nhgam 5.0 nhgamd 10.0 -
+    ther 1 tref 298.15 lang sele .not. type D* end -
+    ther 2 tref 1.0 lang sele type D* end
+
+open write unit 51 card name ./charmm_output/md.res
+open write unit 52 card name ./charmm_output/md.dat
+open write unit 53 file name ./charmm_output/md.dcd
+
+DYNAMICS  vv2   start nstep   2500  timestep   0.001 -
+    nprint 1 iprfrq   100 isvfrq 1 iasvel 1 -
+    firstt 298.15 finalt 298.15 tstruc 298.15  -
+    inbfrq -1   ilbfrq 0 iunread -1  nsavc 1 iuncrd 53 -
+    iunwrite 51 kunit 52
+
+stop
+

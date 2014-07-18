@@ -1,0 +1,4 @@
+A PARALLEL dscf calculation will be started!
+A PARALLEL dscf calculation will be started!
+/home/riahisal/bin/TURBOMOLE/bin/x86_64-unknown-linux-gnu_smp/dscf: line 50: sysname: command not found
+/home/riahisal/bin/TURBOMOLE/bin/x86_64-unknown-linux-gnu_smp/dscf: line 50: /bin//dscf_omp: No such file or directory

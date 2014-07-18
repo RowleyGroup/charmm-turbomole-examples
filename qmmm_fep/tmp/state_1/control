@@ -1,0 +1,77 @@
+$title
+$operating system unix
+$symmetry c1
+$coord    file=coord
+$user-defined bonds    file=coord
+$atoms
+zn 1                                                                           \
+   basis =zn def2-TZVPP
+o  2,5,8,11,14,17                                                              \
+   basis =o def2-TZVPP
+h  3-4,6-7,9-10,12-13,15-16,18-19                                              \
+   basis =h def2-TZVPP
+$basis    file=basis
+$rundimensions
+   dim(fock,dens)=114552
+   natoms=19
+   nshell=156
+   nbf(CAO)=476
+   nbf(AO)=418
+   dim(trafo[SAO<-->AO/CAO])=593
+   rhfshells=1
+$scfmo   file=mos
+$closed shells
+ a       1-44                                   ( 2 )
+$scfiterlimit       1000
+$thize     0.10000000E-04
+$thime        5
+$scfdump
+$scfintunit
+ unit=30       size=0        file=twoint
+$scfdiis
+$scforbitalshift  automatic=.1
+$drvopt
+   cartesian  on
+   basis      off
+   global     off
+   hessian    on
+   dipole     on
+   nuclear polarizability
+   point charges
+$point_charge_gradients file=pc_gradient
+$interconversion  off
+   qconv=1.d-7
+   maxiter=25
+$optimize
+   internal   off
+   cartesian  on
+   global     off
+   basis      off   logarithm
+$coordinateupdate
+   dqmax=0.3
+   interpolate  on
+   statistics    5
+$forceupdate
+   ahlrichs numgeo=0  mingeo=3 maxgeo=4 modus=<g|dq> dynamic fail=0.3
+   threig=0.005  reseig=0.005  thrbig=3.0  scale=1.00  damping=0.0
+$forceinit on
+   diag=default
+$energy    file=energy
+$grad    file=gradient
+$forceapprox    file=forceapprox
+$lock off
+$dft
+   functional pbe0
+   gridsize   m5
+$scfconv   7
+$point_charges file=point_charges
+$scfdamp   start=0.700  step=0.050  min=0.050
+$actual step      grad
+$last SCF energy change = -2237.0073
+$charge from dscf
+          2.000 (not to be modified here)
+$dipole from dscf
+  x     7.74755327938451    y     6.67942810768041    z    -0.33901139885419    a.u.
+   | dipole | =   26.0148532005  debye
+$orbital_max_rnorm 0.20971571880914E-04
+$end

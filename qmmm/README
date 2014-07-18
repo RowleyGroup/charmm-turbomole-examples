@@ -1,0 +1,8 @@
+This directory contains the files for a CHARMM-TURBOMOLE
+QM/MM MD simulation of Mg(II)
+
+charmm_input: CHARMM input scripts
+charmm_output: example output of sample simulation
+data: TURBOMOLE data files
+turbodir: Directory for file transfer between CHARMM and TURBOMOLE
+

@@ -1,0 +1,288 @@
+  this is node-proc. number 1 running on node cp3620
+  the total number of node-proc. spawned is           11
+  parallel platform: MPP, or cluster with fast interconnect
+
+ grad (cp3620) : TURBOMOLE V6.5( 18169 ) 21 Mar 2013 at 09:12:09
+ Copyright (C) 2013 TURBOMOLE GmbH, Karlsruhe
+
+
+    2014-07-08 13:12:13.527 
+
+
+ gradient run will be profiled !
+
+
+
+                             g r a d - program
+
+                reinhart ahlrichs, hans horn & ansgar schaefer
+                 density functional version : oliver treutler
+              parallelized version : m. v. arnim and GMD 
+
+
+                          quantum chemistry group
+                          universitaet  karlsruhe
+                                   germany
+
+
+
+
+                                                 
+                                 References:     
+                                                 
+          Density Functional:                              
+              O. Treutler and R. Ahlrichs                      
+              Efficient Molecular Numerical Integration Schemes
+              J. chem. Phys. 102: 346 (1995)                   
+          Parallel Version:                                
+              Performance of parallel TURBOMOLE for Density    
+              Functional Calculations                          
+              M. v.Arnim and R. Ahlrichs                      
+              J. comp. Chem. 19: 1746 (1998)                   
+                                         
+
+
+
+
+              +--------------------------------------------------+
+              | Atomic coordinate, charge and isotop information |
+              +--------------------------------------------------+
+
+                    atomic coordinates            atom    charge  isotop
+          0.00412671   -0.00160772   -0.01264778    mg    12.000     0
+          0.19406562   -3.65636143   -1.65305974    o      8.000     0
+          0.92829433   -4.43303470   -3.11237795    h      1.000     0
+         -1.45642929   -4.38663443   -1.53268231    h      1.000     0
+         -3.63488756   -0.88998810    1.39185235    o      8.000     0
+         -4.23893579   -2.58639375    1.56289744    h      1.000     0
+         -5.07558494    0.05022895    0.83300910    h      1.000     0
+          1.53045330   -1.66564584    3.22608676    o      8.000     0
+          2.08114269   -0.68791299    4.64478423    h      1.000     0
+          2.60934549   -3.11750729    3.22966183    h      1.000     0
+         -0.11695089    3.28794749    1.91792428    o      8.000     0
+         -1.25217587    3.61395088    3.28792751    h      1.000     0
+          1.30054075    4.36525705    2.23736816    h      1.000     0
+          3.42646690    0.47945767   -1.70730295    o      8.000     0
+          5.11273943    0.65174155   -1.07585537    h      1.000     0
+          3.48550694    1.20663563   -3.36249155    h      1.000     0
+         -1.23757615    1.45043074   -3.76637384    o      8.000     0
+         -2.27750693    2.55460772   -4.75189908    h      1.000     0
+         -0.54186906    0.29063796   -4.96753792    h      1.000     0
+ 
+       center of nuclear mass  :    0.02542082   -0.13929498   -0.09661542
+       center of nuclear charge:    0.02801608   -0.14515266   -0.10952714
+
+              +--------------------------------------------------+
+              |               basis set information              |
+              +--------------------------------------------------+
+
+              we will work with the 1s 3p 5d 7f 9g ... basis set
+              ...i.e. with spherical basis functions...
+
+   type   atoms  prim   cont   basis
+   ---------------------------------------------------------------------------
+    mg       1     53     32   def2-TZVPP   [5s4p3d|14s8p3d]
+    o        6     46     31   def2-TZVPP   [5s3p2d1f|11s6p2d1f]
+    h       12     16     14   def2-TZVPP   [3s2p1d|5s2p1d]
+   ---------------------------------------------------------------------------
+   total:   19    521    386
+   ---------------------------------------------------------------------------
+
+   total number of primitive shells          :   53
+   total number of contracted shells         :  150
+   total number of cartesian basis functions :  431
+   total number of SCF-basis functions       :  386
+
+
+ integral neglect threshold       :  0.77E-11
+ integral storage threshold THIZE :  0.10E-04
+ integral storage threshold THIME :         5
+
+
+ symmetry group of the molecule :   c1 
+
+ the group has the following generators :
+   c1(z)
+
+    1 symmetry operations found
+
+ there are 1 real representations :   a   
+
+ maximum number of shells which are related by symmetry :  1
+
+
+    mo occupation :
+   irrep   mo's   occupied
+    a      386       35
+ 
+ number of basis functions   :          386
+ number of occupied orbitals :           35
+ 
+
+ number of off-diagonal lagrangians expected :  0
+  MOs are in ASCII format !
+
+
+ reading orbital data $scfmo  from file mos . 
+
+ orbital characterization : scfconv=7
+ 
+ time elapsed for calculating density matrices :   0.013 sec
+
+  grad preliminaries : cpu elapsed         0.313 s
+                       wall                0.488 s
+  
+           ------------------
+           density functional
+           ------------------
+ PBE0 hybrid functional
+ exchange:    3/4 (LDA+PBE) + 1/4 HF
+ correlation: LDA (PW) + PBE
+ iterations will be done with small grid
+  
+ spherical integration : Lebedev's spherical grid
+ spherical gridsize    :           5
+    i.e. gridpoints    :         590
+ value for diffuse not defined
+ radial integration    : Chebyshev 2nd kind (scaling 3)
+ radial gridsize       :           8
+ integration cells     :          19
+ partition function    : becke
+ partition sharpness   :           3
+  
+
+ <rddim> : input of entry tasksize
+           from data group '$pardft' failed !
+
+               Default values taken
+
+ <rddim> : input of entry memdiv
+           from data group '$pardft' failed !
+
+               Default values taken
+  DSCF: memory allocation for DFT gridpoints
+  MEMORY is divided by 1 as DEFAULT
+ Each node can hold at most  the            1 -th part
+ of the gridpoints    
+
+
+
+                    and now featuring
+                             the super-duper gradient    ..... wow .....
+
+
+ ------------------------------------------------------------------------------
+
+            SCF ENERGY GRADIENT with respect to NUCLEAR COORDINATES            
+
+ ------------------------------------------------------------------------------
+
+
+
+ gradclient cp3620 starts with 1-el. contribution(s)!
+
+
+    ----------------------------------------
+     S+T+V CONTRIBUTIONS TO ENERGY GRADIENT 
+    ----------------------------------------
+
+ 1e-integral 1st. derivatives will be neglected if expon. factor < 0.100000E-10
+
+
+------------------------------------------------------------------------
+ point charges
+------------------------------------------------------------------------
+
+ number of point charges read in =       2225
+
+ distance threshold set to   0.10D-05
+
+  cpu time for this 1e-contribution to gradient :     10.57 sec
+
+  cpu time for 2e-part of gradient :      0.20 min
+
+
+ Integrated ground state density     :   70.00000300834324    
+
+
+          ------------------------------------------------
+           cartesian gradient of the energy (hartree/bohr)
+          ------------------------------------------------
+
+  ATOM      1 mg          2 o           3 h           4 h           5 o 
+dE/dx  0.8017145D-02  0.7438503D-02 -0.7665616D-02  0.1064550D-01 -0.8605350D-02
+dE/dy  0.5864039D-02 -0.4575035D-02  0.1728440D-02  0.8050487D-02 -0.4015372D-02
+dE/dz  0.1128137D-02 -0.3139161D-02  0.3640982D-02 -0.1106859D-02  0.9517315D-02
+
+  ATOM      6 h           7 h           8 o           9 h          10 h 
+dE/dx  0.2123297D-02  0.6566114D-02 -0.4684746D-02  0.9171117D-03 -0.3954780D-02
+dE/dy  0.9679141D-02 -0.4895927D-02 -0.2408044D-02 -0.4452286D-02  0.9644476D-02
+dE/dz -0.6526986D-02 -0.1872059D-03  0.3321583D-02 -0.7075491D-02  0.4257674D-02
+
+  ATOM     11 o          12 h          13 h          14 o          15 h 
+dE/dx -0.4365186D-02  0.9802820D-02 -0.3041195D-02 -0.3129261D-02 -0.9344351D-02
+dE/dy  0.1542483D-03 -0.2104796D-02 -0.6115917D-02 -0.5719285D-02  0.2247599D-02
+dE/dz  0.4949296D-03 -0.4351027D-02  0.8159648D-03  0.2838054D-03 -0.2748246D-02
+
+  ATOM     16 h          17 o          18 h          19 h 
+dE/dx  0.1062756D-02 -0.8026164D-02  0.5805316D-02  0.2936140D-02
+dE/dy -0.4287875D-02  0.9092310D-02 -0.7137786D-02  0.1691985D-02
+dE/dz  0.7329046D-02 -0.1008370D-01  0.7014788D-03  0.8324065D-02
+ 
+ resulting FORCE  (fx,fy,fz) = (0.250D-02,0.244D-02,0.460D-02)
+ resulting MOMENT (mx,my,mz) = (-.976D-02,-.399D-01,-.123D-01)
+
+
+ exx =      -0.123165 eyy =      -0.115761 ezz =      -0.050376
+ eyz =      -0.014226 exz =       0.005216 exy =      -0.018525
+
+
+ **********************************************************************
+  |maximum component of gradient| : 0.10645502E-01  (atom  4 h )       
+   gradient norm                  : 0.43380843E-01
+ **********************************************************************
+
+ <getgrd> : data group $grad  is missing 
+
+   ***  cartesian gradients written onto <gradient>  ***
+
+
+     --- calculation of the energy gradient finished ---
+
+ 
+ ! grave: sending quit signal to master process
+ 
+
+    grad.all profiling
+  --------------------------------------------------------------------
+             module   cpu total (s)       %  wall total (s)       %
+
+          grad.input             0.4    2.46             0.5    3.44
+          gmd.mkdmat             0.0    0.01             0.0    0.01
+           gmd.demat             0.0    0.02             0.0    0.02
+          gmd.densao             0.0    0.05             0.0    0.05
+          gmd.putvec             0.0    0.01             0.0    0.01
+           dft total             3.6   24.62             3.6   24.35
+         grad.stvder            10.6   72.89            10.6   72.15
+           parder.gs             0.0    0.00             0.0    0.00
+    xc contributions             3.6   24.56             3.6   24.27
+          dft.extask             3.5   23.80             3.5   23.51
+             funct_3             0.8    5.83             0.9    5.90
+              onde_2             1.2    8.36             1.2    8.30
+                 gga             0.0    0.12             0.0    0.08
+               ongrd             1.2    8.15             1.2    8.03
+           pdfgra.gs             0.0    0.32             0.0    0.33
+ 
+
+
+    ------------------------------------------------------------------------
+         total  cpu-time :  14.54 seconds
+         total wall-time :  14.76 seconds
+    ------------------------------------------------------------------------
+
+
+   ****  grad : all done  ****
+
+
+    2014-07-08 13:12:28.242 
+

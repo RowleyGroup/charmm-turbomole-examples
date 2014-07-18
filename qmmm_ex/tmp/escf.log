@@ -1,0 +1,20 @@
+ *** WARNING: Could not read properly <logical> value for $point_charges ***
+ operating system is UNIX !
+ hostname is         cp3620
+
+ data group $actual step is not empty 
+ due to the abend of grad
+
+
+ this is only a subsequent error message
+ check reason for abend in the other output files ...
+
+ use the command  'actual -r'  to get rid of that 
+
+ 
+ MODTRACE: no modules on stack
+
+  CONTRL dead = actual step 
+ escf ended abnormally
+ escf ended abnormally
+program stopped.

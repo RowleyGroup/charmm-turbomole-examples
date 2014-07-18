@@ -1,0 +1,223 @@
+  this is node-proc. number 10 running on node cp3620
+  the total number of node-proc. spawned is           11
+  parallel platform: MPP, or cluster with fast interconnect
+
+ grad (cp3620) : TURBOMOLE V6.5( 18169 ) 21 Mar 2013 at 09:12:09
+ Copyright (C) 2013 TURBOMOLE GmbH, Karlsruhe
+
+
+    2014-07-08 13:13:58.990 
+
+
+ gradient run will be profiled !
+
+
+
+                             g r a d - program
+
+                reinhart ahlrichs, hans horn & ansgar schaefer
+                 density functional version : oliver treutler
+              parallelized version : m. v. arnim and GMD 
+
+
+                          quantum chemistry group
+                          universitaet  karlsruhe
+                                   germany
+
+
+
+
+                                                 
+                                 References:     
+                                                 
+          Density Functional:                              
+              O. Treutler and R. Ahlrichs                      
+              Efficient Molecular Numerical Integration Schemes
+              J. chem. Phys. 102: 346 (1995)                   
+          Parallel Version:                                
+              Performance of parallel TURBOMOLE for Density    
+              Functional Calculations                          
+              M. v.Arnim and R. Ahlrichs                      
+              J. comp. Chem. 19: 1746 (1998)                   
+                                         
+
+
+
+
+              +--------------------------------------------------+
+              | Atomic coordinate, charge and isotop information |
+              +--------------------------------------------------+
+
+                    atomic coordinates            atom    charge  isotop
+          0.00412671   -0.00160772   -0.01264778    zn    30.000     0
+          0.19406562   -3.65636143   -1.65305974    o      8.000     0
+          0.92829433   -4.43303470   -3.11237795    h      1.000     0
+         -1.45642929   -4.38663443   -1.53268231    h      1.000     0
+         -3.63488756   -0.88998810    1.39185235    o      8.000     0
+         -4.23893579   -2.58639375    1.56289744    h      1.000     0
+         -5.07558494    0.05022895    0.83300910    h      1.000     0
+          1.53045330   -1.66564584    3.22608676    o      8.000     0
+          2.08114269   -0.68791299    4.64478423    h      1.000     0
+          2.60934549   -3.11750729    3.22966183    h      1.000     0
+         -0.11695089    3.28794749    1.91792428    o      8.000     0
+         -1.25217587    3.61395088    3.28792751    h      1.000     0
+          1.30054075    4.36525705    2.23736816    h      1.000     0
+          3.42646690    0.47945767   -1.70730295    o      8.000     0
+          5.11273943    0.65174155   -1.07585537    h      1.000     0
+          3.48550694    1.20663563   -3.36249155    h      1.000     0
+         -1.23757615    1.45043074   -3.76637384    o      8.000     0
+         -2.27750693    2.55460772   -4.75189908    h      1.000     0
+         -0.54186906    0.29063796   -4.96753792    h      1.000     0
+ 
+       center of nuclear mass  :    0.02038056   -0.10670478   -0.07674050
+       center of nuclear charge:    0.02323821   -0.11644368   -0.09015127
+
+              +--------------------------------------------------+
+              |               basis set information              |
+              +--------------------------------------------------+
+
+              we will work with the 1s 3p 5d 7f 9g ... basis set
+              ...i.e. with spherical basis functions...
+
+   type   atoms  prim   cont   basis
+   ---------------------------------------------------------------------------
+    zn       1    111     64   def2-TZVPP   [6s5p4d2f1g|17s12p7d2f1g]
+    o        6     46     31   def2-TZVPP   [5s3p2d1f|11s6p2d1f]
+    h       12     16     14   def2-TZVPP   [3s2p1d|5s2p1d]
+   ---------------------------------------------------------------------------
+   total:   19    579    418
+   ---------------------------------------------------------------------------
+
+   total number of primitive shells          :   67
+   total number of contracted shells         :  156
+   total number of cartesian basis functions :  476
+   total number of SCF-basis functions       :  418
+
+
+ integral neglect threshold       :  0.70E-11
+ integral storage threshold THIZE :  0.10E-04
+ integral storage threshold THIME :         5
+
+
+ symmetry group of the molecule :   c1 
+
+ the group has the following generators :
+   c1(z)
+
+    1 symmetry operations found
+
+ there are 1 real representations :   a   
+
+ maximum number of shells which are related by symmetry :  1
+
+
+    mo occupation :
+   irrep   mo's   occupied
+    a      418       44
+ 
+ number of basis functions   :          418
+ number of occupied orbitals :           44
+ 
+
+ number of off-diagonal lagrangians expected :  0
+  MOs are in ASCII format !
+
+
+ reading orbital data $scfmo  from file mos . 
+
+ orbital characterization : scfconv=7
+ 
+ time elapsed for calculating density matrices :   0.020 sec
+
+  grad preliminaries : cpu elapsed         0.350 s
+                       wall                0.494 s
+  
+           ------------------
+           density functional
+           ------------------
+ PBE0 hybrid functional
+ exchange:    3/4 (LDA+PBE) + 1/4 HF
+ correlation: LDA (PW) + PBE
+ iterations will be done with small grid
+  
+ spherical integration : Lebedev's spherical grid
+ spherical gridsize    :           5
+    i.e. gridpoints    :         590
+ value for diffuse not defined
+ radial integration    : Chebyshev 2nd kind (scaling 3)
+ radial gridsize       :           8
+ integration cells     :          19
+ partition function    : becke
+ partition sharpness   :           3
+  
+
+ <rddim> : input of entry tasksize
+           from data group '$pardft' failed !
+
+               Default values taken
+
+ <rddim> : input of entry memdiv
+           from data group '$pardft' failed !
+
+               Default values taken
+  DSCF: memory allocation for DFT gridpoints
+  MEMORY is divided by 1 as DEFAULT
+ Each node can hold at most  the            1 -th part
+ of the gridpoints    
+
+
+
+                    and now featuring
+                             the super-duper gradient    ..... wow .....
+
+
+ ------------------------------------------------------------------------------
+
+            SCF ENERGY GRADIENT with respect to NUCLEAR COORDINATES            
+
+ ------------------------------------------------------------------------------
+
+
+
+ gradclient cp3620 starts with 1-el. contribution(s)!
+
+
+    ----------------------------------------
+     S+T+V CONTRIBUTIONS TO ENERGY GRADIENT 
+    ----------------------------------------
+
+ 1e-integral 1st. derivatives will be neglected if expon. factor < 0.100000E-10
+
+
+------------------------------------------------------------------------
+ point charges
+------------------------------------------------------------------------
+
+ number of point charges read in =       2225
+
+ distance threshold set to   0.10D-05
+
+  cpu time for this 1e-contribution to gradient :      4.68 sec
+
+
+    -----------------------------------------------
+     TWO ELECTRON CONTRIBUTIONS TO ENERGY GRADIENT 
+    -----------------------------------------------
+
+ gradclient cp3620 starts with 2e-step !
+
+
+ biggest 1-particle AO density matrix element is expected to be    2.6012011758
+
+ core memory to be involved in 2e-gradient :
+   symmetry shell pair data              :         1
+   one and two particle density          :    176397
+   derivative integrals                  :    313875
+   ij-primitive data                     :       576
+   derivative integral bound             :     36738
+   totally                               :    527586
+
+
+ setting up bound for integral derivative estimation
+
+ increment for numerical differentiation : 0.00050000

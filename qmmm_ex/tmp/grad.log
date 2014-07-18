@@ -1,0 +1,20 @@
+/home/riahisal/bin/TURBOMOLE/bin/x86_64-unknown-linux-gnu_smp/grad: illegal option -- s
+/home/riahisal/bin/TURBOMOLE/bin/x86_64-unknown-linux-gnu_smp/grad: illegal option -- m
+/home/riahisal/bin/TURBOMOLE/bin/x86_64-unknown-linux-gnu_smp/grad: illegal option -- p
+/home/riahisal/bin/TURBOMOLE/bin/x86_64-unknown-linux-gnu_smp/grad: illegal option -- c
+/home/riahisal/bin/TURBOMOLE/bin/x86_64-unknown-linux-gnu_smp/grad: illegal option -- p
+/home/riahisal/bin/TURBOMOLE/bin/x86_64-unknown-linux-gnu_smp/grad: illegal option -- u
+/home/riahisal/bin/TURBOMOLE/bin/x86_64-unknown-linux-gnu_smp/grad: illegal option -- s
+ grad ended abnormally
+program stopped.
+STARTING grad ON 1 PROCESSORS!
+RUNNING PROGRAM /home/riahisal/bin/TURBOMOLE/bin/x86_64-unknown-linux-gnu_smp/grad_mpi.
+PLEASE WAIT UNTIL grad HAS FINISHED.
+Look for the output in slave1.output.
+MACHINEFILE is /var/spool/torque/aux//69943.mp2.m
+mpid: PATH=/opt/platform_mpi/bin:/opt/gcc/4.8.2/bin:/opt/ekopath/4.0.12.1/bin:/opt/pgi/linux86-64/11.10/bin:/opt/intel/composerxe-2011.5.220/bin/intel64:/opt/maui/bin:/opt/torque/bin:/opt/bqtools/4.2.3/bin:/opt/bin:/opt/ccstools/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/intel/composerxe-2011.5.220/mpirt/bin/intel64:/home/riahisal/bin:.:/home/riahisal/bin
+mpid: PWD=/mnt/parallel_scratch_mp2_wipe_on_december_2014/rowley/riahisal/qmmm/scripts/qmmm_ex/tmp
+mpid: Internal Error: execvp failed: Cannot execute MPI_WORKDIR=/mnt/parallel_scratch_mp2_wipe_on_december_2014/rowley/riahisal/qmmm/scripts/qmmm_ex/tmp: No child processes
+MPI Application rank 0 exited before MPI_Init() with status 1
+mpirun: Broken pipe
+No file slave1.output found?

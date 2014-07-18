@@ -1,0 +1,99 @@
+* CHARMM 
+*
+
+prnlev 3
+
+
+!set the environment variables for TURBOMOLE
+
+!qturboexe points to the "turbo.py" script that executes TURBOMOLE
+envi qturboexe "< absolute path to /turbo.py>"
+
+!"qturbooutpath" is the directory that includes "coord", "point_charges", and "gradient" files that are 
+!copied back and forth between CHARMM and TURBOMOLE
+envi qturbooutpath  "< absolute path to > /turbodir/"
+
+!"qturboinpath" includes the input files for TURBOMOLE, e.g. control, basis, ...
+envi qturboinpath "< absolute path to > /data/"
+
+
+stream ./charmm_input/toppar_qm.str
+
+READ sequence MGQ 1
+generate ION setup first none last none noangle nodihedral
+READ sequence WATQ 6
+generate IN setup first none last none  noangle nodihedral
+READ sequence SWM4 445
+generate OUT setup first none last none  noangle nodihedral DRUDE DMASS 0.4 HYPE HORD 4 KHYP 40000 RHYP 0.2 
+
+read coor card name ./charmm_input/mg.crd
+
+coor shake
+coor sdrude
+
+NBOND -
+    atom   cdiel  eps 1.0 -               !Electrostatics
+    vatom  vswitch        -               ! VdW
+    elec   switch         -               ! Elec
+    ctonnb 100.0 ctofnb 120.0  cutnb 160.0
+
+faster off
+
+coor stat select segid ION end
+coor trans XDIR -?XAVE YDIR -?YAVE ZDIR -?ZAVE
+
+!This keeps the ion in the middle of sphere
+cons hmcm force 5.0 refx 0.0 refy 0.0 refz 0.0 select segid ION end
+
+!This part applies the spherical boundary condition
+MMFP
+  GEO harmonic  spherical -
+  FORCE 1.0 P1 2.25 -
+  xref 0.0 yref 0.0 zref 0.0 -
+  droff 14.5  select type OH2 end
+END
+
+
+!This tells CHARMM that which molecules are in the QM region and
+!then it deletes the MM internal energy terms for atoms
+!in the QM region and flags these atoms to be represented using the QM model
+
+define qm sele segid ION .or. segid IN end
+qturbo remove sele qm end
+
+
+!Alchemical mutation is controlled using PERT command
+!It selects Mg and replaces it with Zn (type 294 in the str file and mass 65.92603)
+
+PERT sele segid ION end
+scalar type set 294 sele segid ION end
+scalar mass set 65.92603 sele segid ION end
+
+
+!SHAKE setting for the bonds involving H-H
+
+shake bonh - 
+    select .not. type D* end - 
+    nofast
+
+tpcontrol nther 2 nhgam 5.0 nhgamd 10.0 -
+    ther 1 tref 298.15 lang sele .not. type D* end -
+    ther 2 tref 1.0 lang sele type D* end
+
+open write unit 51 card name ./charmm_output/md.res
+open write unit 52 card name ./charmm_output/md.dat
+open write unit 53 file name ./charmm_output/md.dcd
+open write unit 54 card name ./charmm_output/md.dgdl
+
+
+!Note the use of "LAMBDA 0.0" setting which implies the calculation of
+!FEP with lambda=0.0
+
+DYNAMICS  vv2  start nstep   1000  timestep   0.001 -
+    nprint  1 iprfrq   100 isvfrq 1 iasvel 1 -
+    firstt   298.15  finalt    298.15 tstruct 298.15 -
+    inbfrq -1  ilbfrq 0 -
+    iunread 50  nsavc 1 iuncrd 53  iunwrite 51 kunit 52 WHAM 54 -
+    PSTART 0 PSTOP 1000  LAMBDA 0.0 LSTART 0.0 LSTOP 1.0 
+
+stop

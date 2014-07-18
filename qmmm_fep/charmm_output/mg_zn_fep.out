@@ -1,0 +1,624 @@
+1
+                 Chemistry at HARvard Macromolecular Mechanics
+           (CHARMM) - Developmental Version 38b1     August 15, 2013            
+       Copyright(c) 1984-2001  President and Fellows of Harvard College
+                              All Rights Reserved
+     Current operating system: Linux-2.6.32-431.11.2.el6.x86_64(x86_64)@cp3     
+                 Created on  7/8/14 at 13:04:04 by user: root        
+
+            Maximum number of ATOMS:    240480, and RESidues:       80160
+ RDTITL> * CHARMM
+ RDTITL> *
+  
+ CHARMM>     
+  
+ CHARMM>    prnlev 3
+  
+ CHARMM>     
+  
+ CHARMM>     
+  
+ CHARMM>    !set the environment variables for TURBOMOLE
+ CHARMM>     
+  
+ CHARMM>    !qturboexe points to the "turbo.py" script that executes TURBOMOLE
+ CHARMM>    !envi qturboexe "< absolute path to /turbo.py>"
+ CHARMM>    envi qturboexe "/mnt/parallel_scratch_mp2_wipe_on_december_2014/rowley/riahisal/qmmm/scripts/qmmm_fep/data/turbo.py"
+  
+ CHARMM>    !"qturbooutpath" is the directory that includes "coord", "point_charges", and "gradient" files that are
+ CHARMM>    !copied back and forth between CHARMM and TURBOMOLE
+ CHARMM>    !envi qturbooutpath  "< absolute path to > /turbodir/"
+ CHARMM>    envi qturbooutpath  "/mnt/parallel_scratch_mp2_wipe_on_december_2014/rowley/riahisal/qmmm/scripts/qmmm_fep/turbodir/"
+  
+ CHARMM>    !"qturboinpath" includes the input files for TURBOMOLE, e.g. control, basis, ...
+ CHARMM>    !envi qturboinpath "< absolute path to > /data/"
+ CHARMM>    envi qturboinpath "/mnt/parallel_scratch_mp2_wipe_on_december_2014/rowley/riahisal/qmmm/scripts/qmmm_fep/data/"
+  
+ CHARMM>     
+  
+ CHARMM>    !For the FEP calculations you need to provide the
+ CHARMM>    !envi STATEAOUT          "/mnt/parallel_scratch_mp2_wipe_on_december_2014/rowley/riahisal/qmmm/scripts/qmmm_fep/turbodir_A"
+ CHARMM>    !envi STATEBOUT          "/mnt/parallel_scratch_mp2_wipe_on_december_2014/rowley/riahisal/qmmm/scripts/qmmm_fep/turbodir_B"
+ CHARMM>     
+  
+ CHARMM>     
+  
+ CHARMM>    stream ./charmm_input/toppar_qm.str
+ VOPEN> Attempting to open::./charmm_input/toppar_qm.str::
+ OPNLGU> Unit 99 opened for READONLY access to ./charmm_input/toppar_qm.str
+
+                    INPUT STREAM SWITCHING TO UNIT    99
+ RDTITL> * DRUDE MODEL COMPOUND TOPOLOGY FILE
+ RDTITL> * FROM TOPPAR_DRUDE_MASTER_JUN10A2_RIMP2_VTZ_NEWCMAP.STR
+ RDTITL> * SEPTEMBER 2010
+ RDTITL> *
+ Parameter: IN1 <- "" <empty>
+  
+ CHARMM>     
+  
+ CHARMM>    !new tau (N-Ca-C) and backbone N/O LJ14 parameters
+ CHARMM>     
+  
+ CHARMM>    ! adapted from sep10a4 with new anisotropy: amides
+ CHARMM>    !Date: Tue, 12 Oct 2010 10:30:12 -0500
+ CHARMM>    !From: Christopher Rowley <cnrowley@gmail.com>
+ CHARMM>    !ANISOTROPY O C LPA LPB  A11 0.88    A22 1.32
+ CHARMM>     
+  
+ CHARMM>    !adjustment of polypeptide charge distribution to allow	for GROUP definitions
+ CHARMM>    !required for proper treatment of Lone Pairs in	the context of parallel processing
+ CHARMM>     
+  
+ CHARMM>    !1-3 bonds to lone pairs no longer required as of c36a5 (with code modifications)
+ CHARMM>     
+  
+ CHARMM>    !alanine CMAP based on RIMP2/cc-pVTZ, cc-pVQZ two point extrapolation to the CBS
+ CHARMM>    !based on MP2/aug-cc-pVDZ optimized geometries
+ CHARMM>     
+  
+ CHARMM>    !format for individual sections: please follow this RIGOROUSLY!
+ CHARMM>    !including the number of significant figures and spacing. NO TABS
+ CHARMM>     
+  
+ CHARMM>    !RTF section: please use the following format for future residues, including the spacing
+ CHARMM>    !(and please clean a few up of the residues not in this format if you so desire....)
+ CHARMM>     
+  
+ CHARMM>    !RESI ALA           0.000
+ CHARMM>    !ATOM N    ND2A2   -0.452  ALPHA -0.892  THOLE 1.141
+ CHARMM>    !BOND A1     A2     A3     A4     A5     A6     A7     A8
+ CHARMM>    !IMPR A1     A2     A3     A4
+ CHARMM>    !CMAP A1     A2     A3     A4     A1     A2     A3     A4
+ CHARMM>    !LONEPAIR relative A1       A2       A3      A4       distance 0.30 angle 91.00 dihe 180.00
+ CHARMM>    !ANISOTROPY        A1       A2       A3      A4       A11 0.6968  A22 1.2194
+ CHARMM>    !IC A1     A2     A3     A4       1.3474  124.31  180.00  114.26   0.9979
+ CHARMM>     
+  
+ CHARMM>    !parameter section
+ CHARMM>    !bond
+ CHARMM>    !CD32E    OD30A    360.00      1.415 ! comment
+ CHARMM>    !angles
+ CHARMM>    !HDA1A    CD31A    CD31A     34.50    110.10 ! comment
+ CHARMM>    !HDA1A    CD31A    CD31A     34.50    110.10   22.53   2.1790 ! comment
+ CHARMM>    !dihedrals
+ CHARMM>    !CD2O1A   ND2A2    CD31C    CD2O2A      0.000   3   180.00 ! comment
+ CHARMM>    !impropers
+ CHARMM>    !CD2O1A   CD31A    ND2A2    OD2C1A    120.000   0     0.00 ! comment
+ CHARMM>    !nonbond (LJ)
+ CHARMM>    !HDW      0.0   -0.0000     0.0000 ! comment
+ CHARMM>    !CD30A   ODW    -0.00500	 4.04699 ! comment
+ CHARMM>     
+  
+ CHARMM>    ! note use of D for second character to indicate Drude
+ CHARMM>    ! polarizable FF (be careful of Cadmium: use CDM)
+ CHARMM>     
+  
+ CHARMM>    ! Parameter labeling after !
+ CHARMM>    ! RESName, generic compound name of model compound followed by additional comments
+ CHARMM>    ! for example ! BENZ, benzene, based on crystal survey data
+ CHARMM>     
+  
+ CHARMM>    ioformat extended
+ MISCOM> Expanded I/O format is used.
+  
+ CHARMM>     
+  
+ CHARMM>    !bomlev -1
+ CHARMM>     
+  
+ CHARMM>    read rtf card !append
+ MAINIO> Residue topology file being read from unit  99.
+ RDTITL> * TOPOLOGY FOR DRUDE MODEL COMPOUNDS
+ RDTITL> *
+
+ DRUDES PARTICLES WILL BE GENERATED AUTOMATICALLY FOR ALL ATOMS WITH NON-ZERO ALPHA
+ Thole-type dipole screening, Slater-Delta shape {S(u) = 1 - (1+u/2)*exp(-u)}, default radius =  1.300000
+  
+ CHARMM>     
+  
+ CHARMM>    read para card !append
+
+          PARAMETER FILE BEING READ FROM UNIT 99
+ RDTITL> * DRUDE POLARIZABLE FF PARAMETERS
+ RDTITL> *
+
+ PARRDR> WARNING: wild card for drude X       
+  245    1  114  HDP1A     DRUD      500.0000    0.0000      6442
+  246    2  114  HDP1B     DRUD      500.0000    0.0000      6443
+  247    3  114  HDA1A     DRUD      500.0000    0.0000      6444
+  248    4  114  HDA1C     DRUD      500.0000    0.0000      6445
+  249    5  114  HDA1R5    DRUD      500.0000    0.0000      6446
+  250    6  114  HDA2A     DRUD      500.0000    0.0000      6447
+  251    7  114  HDA2C     DRUD      500.0000    0.0000      6448
+  252    8  114  HDA2E     DRUD      500.0000    0.0000      6449
+  253    9  114  HDA2R5    DRUD      500.0000    0.0000      6450
+  254   10  114  HDA3A     DRUD      500.0000    0.0000      6451
+  255   11  114  HDA3B     DRUD      500.0000    0.0000      6452
+  256   12  114  HDA3C     DRUD      500.0000    0.0000      6453
+  257   13  114  HDR5A     DRUD      500.0000    0.0000      6454
+  258   14  114  HDR5B     DRUD      500.0000    0.0000      6455
+  259   15  114  HDR5C     DRUD      500.0000    0.0000      6456
+  260   16  114  HDR5D     DRUD      500.0000    0.0000      6457
+  261   17  114  HDR5E     DRUD      500.0000    0.0000      6458
+  262   18  114  HDR6A     DRUD      500.0000    0.0000      6459
+  263   19  114  HDR6B     DRUD      500.0000    0.0000      6460
+  264   20  114  HDR6C     DRUD      500.0000    0.0000      6461
+  265   21  114  CD2O1A    DRUD      500.0000    0.0000      6462
+  266   22  114  CD2O2A    DRUD      500.0000    0.0000      6463
+  267   23  114  CD2O3A    DRUD      500.0000    0.0000      6464
+  268   24  114  CD2R5A    DRUD      500.0000    0.0000      6465
+  269   25  114  CD2R5B    DRUD      500.0000    0.0000      6466
+  270   26  114  CD2R5C    DRUD      500.0000    0.0000      6467
+  271   27  114  CD2R5D    DRUD      500.0000    0.0000      6468
+  272   28  114  CD2R5E    DRUD      500.0000    0.0000      6469
+  273   29  114  CD2R6A    DRUD      500.0000    0.0000      6470
+  274   30  114  CD2R6B    DRUD      500.0000    0.0000      6471
+  275   31  114  CD2R6C    DRUD      500.0000    0.0000      6472
+  276   32  114  CD2R6D    DRUD      500.0000    0.0000      6473
+  277   33  114  CD2R6F    DRUD      500.0000    0.0000      6474
+  278   35  114  CD2R6H    DRUD      500.0000    0.0000      6476
+  279   36  114  CD2N1A    DRUD      500.0000    0.0000      6477
+  280   40  114  CD30A     DRUD      500.0000    0.0000      6481
+  281   41  114  CD31A     DRUD      500.0000    0.0000      6482
+  282   42  114  CD315B    DRUD      500.0000    0.0000      6483
+  283   43  114  CD31C     DRUD      500.0000    0.0000      6484
+  284   44  114  CD32A     DRUD      500.0000    0.0000      6485
+  285   45  114  CD32C     DRUD      500.0000    0.0000      6486
+  286   46  114  CD325A    DRUD      500.0000    0.0000      6487
+  287   47  114  CD325B    DRUD      500.0000    0.0000      6488
+  288   48  114  CD326A    DRUD      500.0000    0.0000      6489
+  289   49  114  CD326B    DRUD      500.0000    0.0000      6490
+  290   50  114  CD32E     DRUD      500.0000    0.0000      6491
+  291   51  114  CD33A     DRUD      500.0000    0.0000      6492
+  292   52  114  CD33B     DRUD      500.0000    0.0000      6493
+  293   53  114  CD33C     DRUD      500.0000    0.0000      6494
+  294   54  114  CD33E     DRUD      500.0000    0.0000      6495
+  295   60  114  ND2A1     DRUD      500.0000    0.0000      6501
+  296   61  114  ND2A2     DRUD      500.0000    0.0000      6502
+  297   62  114  ND2A3     DRUD      500.0000    0.0000      6503
+  298   63  114  ND2B1     DRUD      500.0000    0.0000      6504
+  299   64  114  ND2R5A    DRUD      500.0000    0.0000      6505
+  300   65  114  ND2R5B    DRUD      500.0000    0.0000      6506
+  301   66  114  ND2R5C    DRUD      500.0000    0.0000      6507
+  302   67  114  ND2R5D    DRUD      500.0000    0.0000      6508
+  303   68  114  ND2R6A    DRUD      500.0000    0.0000      6509
+  304   69  114  ND2R6B    DRUD      500.0000    0.0000      6510
+  305   70  114  ND2R6C    DRUD      500.0000    0.0000      6511
+  306   71  114  ND2R5E    DRUD      500.0000    0.0000      6512
+  307   72  114  ND2P1A    DRUD      500.0000    0.0000      6513
+  308   73  114  ND3P2A    DRUD      500.0000    0.0000      6514
+  309   74  114  ND3P3A    DRUD      500.0000    0.0000      6515
+  310   75  114  ND3A3     DRUD      500.0000    0.0000      6516
+  311   81  114  OD2C1A    DRUD      500.0000    0.0000      6522
+  312   82  114  OD2C1B    DRUD      500.0000    0.0000      6523
+  313   83  114  OD2C2A    DRUD      500.0000    0.0000      6524
+  314   84  114  OD2C2B    DRUD      500.0000    0.0000      6525
+  315   85  114  OD2C3A    DRUD      500.0000    0.0000      6526
+  316   86  114  OD30A     DRUD      500.0000    0.0000      6527
+  317   87  114  OD30B     DRUD      500.0000    0.0000      6528
+  318   88  114  OD30C     DRUD      500.0000    0.0000      6529
+  319   89  114  OD305A    DRUD      500.0000    0.0000      6530
+  320   90  114  OD306A    DRUD      500.0000    0.0000      6531
+  321   91  114  OD31A     DRUD      500.0000    0.0000      6532
+  322   92  114  OD31B     DRUD      500.0000    0.0000      6533
+  323   93  114  OD31C     DRUD      500.0000    0.0000      6534
+  324   94  114  OD30D     DRUD      500.0000    0.0000      6535
+  325  101  114  PD1A      DRUD      500.0000    0.0000      6542
+  326  110  114  DUM       DRUD      500.0000    0.0000      6551
+  327  111  114  XED       DRUD      500.0000    0.0000      6552
+  328  112  114  NED       DRUD      500.0000    0.0000      6553
+  329  113  114  LP        DRUD      500.0000    0.0000      6554
+  330  114  114  DRUD      DRUD      500.0000    0.0000      6555
+  331  121  114  SD31A     DRUD      500.0000    0.0000      7374
+  332  122  114  SD31B     DRUD      500.0000    0.0000      7495
+  333  123  114  SD30A     DRUD      500.0000    0.0000      7617
+  334  124  114  SD30B     DRUD      500.0000    0.0000      7740
+  335  151  114  ODW       DRUD      500.0000    0.0000     11439
+  336  152  114  HDW       DRUD      500.0000    0.0000     11590
+  337  153  114  DOH2      DRUD      500.0000    0.0000     11742
+  338  201  114  LI        DRUD      500.0000    0.0000     20214
+  339  202  114  RB        DRUD      500.0000    0.0000     20415
+  340  203  114  CS        DRUD      500.0000    0.0000     20617
+  341  204  114  F         DRUD      500.0000    0.0000     20820
+  342  205  114  BR        DRUD      500.0000    0.0000     21024
+  343  206  114  I         DRUD      500.0000    0.0000     21229
+  344  207  114  POT       DRUD      500.0000    0.0000     21435
+  345  208  114  CL        DRUD      500.0000    0.0000     21642
+  346  209  114  SODD      DRUD      500.0000    0.0000     21850
+  347  293  114  MGQ       DRUD      500.0000    0.0000     42892
+  348  294  114  ZNQ       DRUD      500.0000    0.0000     43185
+  349  295  114  CUQ       DRUD      500.0000    0.0000     43479
+  350  296  114  SODQ      DRUD      500.0000    0.0000     43774
+  351  297  114  POTQ      DRUD      500.0000    0.0000     44070
+  352  298  114  OQ        DRUD      500.0000    0.0000     44367
+  353  299  114  HQ        DRUD      500.0000    0.0000     44665
+
+ PARMIO> NONBOND, HBOND lists and IMAGE atoms cleared.
+  
+ CHARMM>     
+  
+ VCLOSE: Closing unit   99 with status "KEEP"
+
+                    RETURNING TO INPUT STREAM     5
+  
+ CHARMM>     
+  
+ CHARMM>    READ sequence MGQ 1
+  
+ CHARMM>    generate ION setup first none last none noangle nodihedral
+ NO PATCHING WILL BE DONE ON THE FIRST RESIDUE
+ NO PATCHING WILL BE DONE ON THE LAST  RESIDUE
+ GENPSF> Segment   1 has been generated. Its identifier is ION.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        1   Number of residues   =        1
+         Number of atoms         =        1   Number of groups     =        1
+         Number of bonds         =        0   Number of angles     =        0
+         Number of dihedrals     =        0   Number of impropers  =        0
+         Number of cross-terms   =        0
+         Number of HB acceptors  =        0   Number of HB donors  =        0
+         Number of NB exclusions =        0   Total charge =    2.00000
+  
+ CHARMM>    READ sequence WATQ 6
+  
+ CHARMM>    generate IN setup first none last none  noangle nodihedral
+ NO PATCHING WILL BE DONE ON THE FIRST RESIDUE
+ NO PATCHING WILL BE DONE ON THE LAST  RESIDUE
+ GENPSF> Segment   2 has been generated. Its identifier is IN.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =        7
+         Number of atoms         =       19   Number of groups     =        7
+         Number of bonds         =       18   Number of angles     =        6
+         Number of dihedrals     =        0   Number of impropers  =        0
+         Number of cross-terms   =        0
+         Number of HB acceptors  =        6   Number of HB donors  =        0
+         Number of NB exclusions =        0   Total charge =    2.00000
+  
+ CHARMM>    READ sequence SWM4 445
+  
+ CHARMM>    generate OUT setup first none last none  noangle nodihedral DRUDE DMASS 0.4 HYPE HORD 4 KHYP 40000 RHYP 0.2 noangle nodihedral
+ Drude polarizability will be setup for SEGID: OUT     mass of Drudes particles =    0.4000
+ DRUDE>HyperPolar included
+
+ NO PATCHING WILL BE DONE ON THE FIRST RESIDUE
+ NO PATCHING WILL BE DONE ON THE LAST  RESIDUE
+ GENPSF> Segment   3 has been generated. Its identifier is OUT.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        3   Number of residues   =      452
+         Number of atoms         =     2244   Number of groups     =      452
+         Number of bonds         =     2243   Number of angles     =      451
+         Number of dihedrals     =        0   Number of impropers  =        0
+         Number of cross-terms   =        0
+         Number of HB acceptors  =      451   Number of HB donors  =        0
+         Number of NB exclusions =        0   Total charge =    2.00000
+         Number of Drudes        =      445
+         Number of true-bonds    =     2243   Number of zero-bonds =        0
+         Number of aniso. terms  =        0   Number of lone-pairs =      445
+ **** Warning ****  The following extraneous characters
+ were found while command processing in CHARMM
+ NOANGLE NODIHEDRAL
+  
+ CHARMM>     
+  
+ CHARMM>    read coor card name ./charmm_input/mg.crd
+ VOPEN> Attempting to open::./charmm_input/mg.crd::
+          SPATIAL COORDINATES BEING READ FROM UNIT 90
+ TITLE> * CHARMM
+ TITLE> *  DATE:     6/ 4/14     19: 8:44      CREATED BY USER: ROOT
+ TITLE> *
+ VCLOSE: Closing unit   90 with status "KEEP"
+  
+ CHARMM>     
+  
+ CHARMM>    coor shake
+ SELECTED COORDINATES CONSTRAINED IN THE MAIN SET.
+
+  
+ CHARMM>    coor sdrude
+  
+ CHARMM>     
+  
+ CHARMM>    NBOND -
+ CHARMM>        atom   cdiel  eps 1.0 -               !Electrostatics
+ CHARMM>        vatom  vswitch        -               ! VdW
+ CHARMM>        elec   switch         -               ! Elec
+ CHARMM>        ctonnb 100.0 ctofnb 120.0  cutnb 160.0
+
+ NONBOND OPTION FLAGS: 
+     ELEC     VDW      ATOMs    CDIElec  SWITch   VATOm    VSWItch 
+     BYGRoup  NOEXtnd  NOEWald 
+ CUTNB  =160.000 CTEXNB =999.000 CTONNB =100.000 CTOFNB =120.000
+ CGONNB =  0.000 CGOFNB = 10.000
+ WMIN   =  1.500 WRNMXD =  0.500 E14FAC =  1.000 EPS    =  1.000
+ NBXMOD =      5
+ There are        0 atom  pairs and        0 atom  exclusions.
+ There are        0 group pairs and        0 group exclusions.
+ <MAKINB> with mode   5 found   4468 exclusions and      0 interactions(1-4)
+ <MAKGRP> found      0 group exclusions.
+  
+ CHARMM>     
+  
+ CHARMM>    faster off
+ Hardwired Periodic Boundaries: 
+              Turned Off
+ MISCOM> FAST option: OFF (full feature routines)
+  
+ CHARMM>     
+  
+ CHARMM>    coor stat select segid ION end
+ SELRPN>      1 atoms have been selected out of   2244
+ STATISTICS FOR         1 SELECTED ATOMS:
+    XMIN =   -0.285872 XMAX =   -0.285872 XAVE =   -0.285872
+    YMIN =   -0.062692 YMAX =   -0.062692 YAVE =   -0.062692
+    ZMIN =   -0.020431 ZMAX =   -0.020431 ZAVE =   -0.020431
+    WMIN =    0.000000 WMAX =    0.000000 WAVE =    0.000000
+  
+ CHARMM>    coor trans XDIR -?XAVE YDIR -?YAVE ZDIR -?ZAVE
+ RDCMND substituted energy or value "?XAVE" to "-0.285872"
+ RDCMND substituted energy or value "?YAVE" to "-6.269226E-02"
+ RDCMND substituted energy or value "?ZAVE" to "-2.043109E-02"
+ TRANSLATION VECTOR     0.285872    0.062692    0.020431
+ SELECTED COORDINATES TRANSLATED IN THE MAIN SET.
+
+  
+ CHARMM>     
+  
+ CHARMM>    !This keeps the ion in the middle of sphere
+ CHARMM>    cons hmcm force 5.0 refx 0.0 refy 0.0 refz 0.0 select segid ION end
+ SELRPN>      1 atoms have been selected out of   2244
+ Center of Geometry Harmonic Constraint #  1
+ force constant     =     0.5000E+01
+ reference distance =     0.0000E+00
+ reference point: (        0.0000        0.0000        0.0000)
+ for    1 out of     1 total selected atoms.
+  
+ CHARMM>     
+  
+ CHARMM>    !This part applies the spherical boundary condition
+ CHARMM>    MMFP
+
+      MISCELANEOUS MEAN FIELD POTENTIALS
+  
+   MMFP>      GEO harmonic  spherical -
+   MMFP>      FORCE 1.0 P1 2.25 -
+   MMFP>      xref 0.0 yref 0.0 zref 0.0 -
+   MMFP>      droff 14.5  select type OH2 end
+ GEO INITIALIZED, MAXGEO= 2246
+ Sphere constraint
+ SELRPN>    451 atoms have been selected out of   2244
+ new constraints applied on  451 atoms
+ the total number of constraints is  451
+ the total number of atoms affected is  451
+  
+   MMFP>    END
+  
+ CHARMM>     
+  
+ CHARMM>     
+  
+ CHARMM>    !This tells CHARMM that which molecules are in the QM region and
+ CHARMM>    !then it deletes the MM internal energy terms for atoms
+ CHARMM>    !in the QM region and flags these atoms to be represented using the QM model
+ CHARMM>     
+  
+ CHARMM>    define qm sele segid ION .or. segid IN end
+ SELRPN>     19 atoms have been selected out of   2244
+  
+ CHARMM>    qturbo remove sele qm end
+ SELRPN>     19 atoms have been selected out of   2244
+QTURBO> REMOve: Classical energies within QM atoms are removed.
+QTURBO> No EXGRoup: QM/MM Elec. for link atom host only is removed.
+QTURBO> No QINP: Charges will be based on atomic numbers.
+------------------------------------------------
+GUKINT: Classical atoms excluded from the QM calculation:
+          NONE.
+GUKINT: Quantum mechanical atoms:
+                   1 ION      1        MGQ      MG      
+                   2 IN       1        WATQ     OH2     
+                   3 IN       1        WATQ     H1      
+                   4 IN       1        WATQ     H2      
+                   5 IN       2        WATQ     OH2     
+                   6 IN       2        WATQ     H1      
+                   7 IN       2        WATQ     H2      
+                   8 IN       3        WATQ     OH2     
+                   9 IN       3        WATQ     H1      
+                  10 IN       3        WATQ     H2      
+                  11 IN       4        WATQ     OH2     
+                  12 IN       4        WATQ     H1      
+                  13 IN       4        WATQ     H2      
+                  14 IN       5        WATQ     OH2     
+                  15 IN       5        WATQ     H1      
+                  16 IN       5        WATQ     H2      
+                  17 IN       6        WATQ     OH2     
+                  18 IN       6        WATQ     H1      
+                  19 IN       6        WATQ     H2      
+GUKINT: Quantum mechanical link atoms:
+          NONE.
+------------------------------------------------
+  
+ CHARMM>     
+  
+ CHARMM>     
+  
+ CHARMM>    !Alchemical mutation is controlled using PERT command
+ CHARMM>    !It selects Mg and replaces it with Zn (type 294 in the str file and mass 65.92603)
+ CHARMM>     
+  
+ CHARMM>    PERT sele segid ION end
+ SELRPN>      1 atoms have been selected out of   2244
+ PERT: The current PSF is saved as lambda=0 for subsequent calculations.
+ PERT: Number of atoms treated as changing:     1
+
+ NONBOND OPTION FLAGS: 
+     ELEC     VDW      ATOMs    CDIElec  SWITch   VATOm    VSWItch 
+     BYGRoup  NOEXtnd  NOEWald 
+ CUTNB  =160.000 CTEXNB =999.000 CTONNB =100.000 CTOFNB =120.000
+ CGONNB =  0.000 CGOFNB = 10.000
+ WMIN   =  1.500 WRNMXD =  0.500 E14FAC =  1.000 EPS    =  1.000
+ NBXMOD =      5
+ There are  2512178 atom  pairs and     4468 atom  exclusions.
+ There are        0 group pairs and        0 group exclusions.
+  
+ CHARMM>    scalar type set 294 sele segid ION end
+ SELRPN>      1 atoms have been selected out of   2244
+  
+ CHARMM>    scalar mass set 65.92603 sele segid ION end
+ SELRPN>      1 atoms have been selected out of   2244
+  
+ CHARMM>     
+  
+ CHARMM>     
+  
+ CHARMM>    !SHAKE setting for the bonds involving H-H
+ CHARMM>     
+  
+ CHARMM>    shake bonh -
+ CHARMM>        select .not. type D* end -
+ CHARMM>        nofast
+ SELRPN>   1799 atoms have been selected out of   2244
+ SHKCOM> SHAKE parameters: TOL =   0.1000D-09 MXITer =    500
+
+            1353 constraints will held by SHAKE.
+  
+ CHARMM>     
+  
+ CHARMM>    tpcontrol nther 2 nhgam 5.0 nhgamd 10.0 -
+ CHARMM>        ther 1 tref 298.15 lang sele .not. type D* end -
+ CHARMM>        ther 2 tref 1.0 lang sele type D* end
+ TPCONTROL> ON
+ SELRPN>   1799 atoms have been selected out of   2244
+ SELRPN>    445 atoms have been selected out of   2244
+Thermostat  1
+    Reference temperature =    298.15000 K
+    Langevin forces will be added.
+    Friction coefficient =      5.00000 1/ps
+    Number of atoms       =    1799
+Thermostat  2
+    Reference temperature =      1.00000 K
+    Langevin forces will be added.
+    Friction coefficient =     10.00000 1/ps
+    Number of atoms       =     445
+  
+ CHARMM>     
+  
+ CHARMM>    open write unit 51 card name ./charmm_output/md.res
+ VOPEN> Attempting to open::./charmm_output/md.res::
+ OPNLGU> Unit 51 opened for WRITE access to ./charmm_output/md.res
+  
+ CHARMM>    open write unit 52 card name ./charmm_output/md.dat
+ VOPEN> Attempting to open::./charmm_output/md.dat::
+ OPNLGU> Unit 52 opened for WRITE access to ./charmm_output/md.dat
+  
+ CHARMM>    open write unit 53 file name ./charmm_output/md.dcd
+ VOPEN> Attempting to open::./charmm_output/md.dcd::
+ OPNLGU> Unit 53 opened for WRITE access to ./charmm_output/md.dcd
+  
+ CHARMM>    open write unit 54 card name ./charmm_output/md.dgdl
+ VOPEN> Attempting to open::./charmm_output/md.dgdl::
+ OPNLGU> Unit 54 opened for WRITE access to ./charmm_output/md.dgdl
+  
+ CHARMM>     
+  
+ CHARMM>     
+  
+ CHARMM>    !Note the "LAMBDA 0.0" setting which implies the calculation of
+ CHARMM>    !FEP with lambda=0.0
+ CHARMM>     
+  
+ CHARMM>    DYNAMICS  vv2  start nstep   1000  timestep   0.001 -
+ CHARMM>        nprint  1 iprfrq   100 isvfrq 1 iasvel 1 -
+ CHARMM>        firstt   298.15  finalt    298.15 tstruct 298.15 -
+ CHARMM>        inbfrq -1  ilbfrq 0 -
+ CHARMM>        iunread 50  nsavc 1 iuncrd 53  iunwrite 51 kunit 52 WHAM 54 -
+ CHARMM>        PSTART 0 PSTOP 1000  LAMBDA 0.0 LSTART 0.0 LSTOP 1.0
+  IUNREA = 50         IUNWRI = 51          IUNOS = -1
+  IUNCRD = 53         IUNVEL = -1          KUNIT = 52
+
+ NONBOND OPTION FLAGS: 
+     ELEC     VDW      ATOMs    CDIElec  SWITch   VATOm    VSWItch 
+     BYGRoup  NOEXtnd  NOEWald 
+ CUTNB  =160.000 CTEXNB =999.000 CTONNB =100.000 CTOFNB =120.000
+ CGONNB =  0.000 CGOFNB = 10.000
+ WMIN   =  1.500 WRNMXD =  0.500 E14FAC =  1.000 EPS    =  1.000
+ NBXMOD =      5
+ There are  2512178 atom  pairs and     4468 atom  exclusions.
+ There are        0 group pairs and        0 group exclusions.
+ PERTURBATION> write for WHAM analysis on punit 54
+ PERTURBATION> Free energy perturbation calculation initiated.
+ PERTURBATION> PSTART=           0  PSTOP=        1000
+ PERTURBATION> LSTART=    0.000000  LSTOP=    1.000000  LAMBDA=    0.000000
+ PERTURBATION> Windowing will be used.
+   NSTEP =     1000    NSAVC =        1    NSAVV =       10
+  ISCALE =        0   ISCVEL =        0   IASORS =        0
+  IASVEL =        1   ICHECW =        1   NTRFRQ =        0
+  IHTFRQ =        0   IEQFRQ =        0   NPRINT =        1
+  INBFRQ =       -1   IHBFRQ =        0   IPRFRQ =      100
+  ILBFRQ =        0   IMGFRQ =        0
+  ISVFRQ =        1   NCYCLE =        1    NSNOS =       10
+  FIRSTT =   298.150  TEMINC =     5.000  TSTRUC =   298.150
+  FINALT =   298.150  TWINDH =    10.000  TWINDL =   -10.000
+
+  TIME STEP =  2.04548E-02 AKMA       1.00000E-03 PS
+
+  RANDOM NUM. GEN. SEED(S) = 384739756 384739756 384739756 384739756
+
+           SHAKE TOLERANCE =     0.10000E-09
+ BLOCK   1 # OF DEGREES OF FREEDOM =   2709
+ BLOCK   2 # OF DEGREES OF FREEDOM =   1335
+ NUMBER OF DEGREES OF FREEDOM =   4044
+
+          GAUSSIAN OPTION                  IS            1
+          VELOCITIES ASSIGNED AT TEMPERATURE =    298.1500
+          SEED FOR RANDOM NUMBER GENERATOR IS:
+          SEEDS> 384739756 384739756 384739756 384739756
+ /mnt/parallel_scratch_mp2_wipe_on_december_2014/rowley/riahisal/qmmm/scripts/qmmm_fep/turbodir//gradient
+ /mnt/parallel_scratch_mp2_wipe_on_december_2014/rowley/riahisal/qmmm/scripts/qmmm_fep/turbodir//gradient
+DYNA DYN: Step         Time      TOTEner        TOTKe       ENERgy  TEMPerature
+DYNA PROP:             GRMS      HFCTote        HFCKe       EHFCor        VIRKe
+DYNA EXTERN:        VDWaals         ELEC       HBONds          ASP         USER
+DYNA QUANTUM:        QMELec        QMVDw  
+DYNA MMFP:              GEO        MDIP           SSBP        SHEL       DROFfa
+DYNA PRESS:            VIRE         VIRI       PRESSE       PRESSI       VOLUme
+ ----------       ---------    ---------    ---------    ---------    ---------
+DYNA>        0      0.00000-415017.56014    826.42506-415843.98519    306.81477
+DYNA PROP>         22.03653-415017.56014      0.00000      0.00000  -4314.61017
+DYNA EXTERN>      915.02738  -3904.37492      0.00000      0.00000      0.00000
+DYNA QUANTM>  -412860.23659      0.00000
+DYNA MMFP>          5.59894      0.00000      0.00000      0.00000      0.00000
+DYNA PRESS>       -87.95350   2964.36029      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ /mnt/parallel_scratch_mp2_wipe_on_december_2014/rowley/riahisal/qmmm/scripts/qmmm_fep/turbodir//gradient
+ /mnt/parallel_scratch_mp2_wipe_on_december_2014/rowley/riahisal/qmmm/scripts/qmmm_fep/turbodir//gradient
+DYNA>        1      0.00100-415181.43542   1328.91425-416510.34967    302.19030
+DYNA PROP>         14.73690-415181.43542      0.00000      0.00000  -2158.40177
+DYNA INTERN>      225.65248      0.00000      0.00000      0.00000      0.00000
+DYNA EXTERN>      911.54321  -4791.52349      0.00000      0.00000      0.00000
+DYNA RESTR>         0.00006      0.00000      0.00000      0.00000      0.00000
+DYNA QUANTM>  -412861.63787      0.00000
+DYNA MMFP>          5.61593      0.00000      0.00000      0.00000      0.00000
+DYNA PRESS>       -88.13620   1527.07071      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step       1
+ /mnt/parallel_scratch_mp2_wipe_on_december_2014/rowley/riahisal/qmmm/scripts/qmmm_fep/turbodir//gradient
