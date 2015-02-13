@@ -1,0 +1,26 @@
+
+
+ 1) Run mycharm.inp until the first stop
+  
+ 2) Read coordinates of the QM region 
+     from the charmm output 
+
+ 3) Prepare define for TURBOMOLE
+    in the data directory 
+
+ 4) make a single point calculations in data
+    (not necessary, but will help convergence of the first QM/MM step)
+
+ 5) Add keywords:
+
+$point_charges file=point_charges
+$point_charge_gradients file=pc_gradient
+
+and in the "$drvopt" section:
+   point charges
+
+ to enable evaluation of forces on MM atoms from QM region
+
+ 6) after steps 1-5, 
+    continue by removing the "stop" 
+

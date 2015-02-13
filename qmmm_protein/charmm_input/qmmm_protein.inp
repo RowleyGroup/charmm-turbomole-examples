@@ -1,0 +1,320 @@
+* QM/MM calculation of a protein, water, ion system
+*
+  
+! QM/MM protein tutorial
+! by Ville R. I. Kaila
+! Technische Universitaet Muenchen
+! Department Chemie 
+! E-mail: ville.kaila@ch.tum.de
+! Ubiquitin in water 
+
+! this is a CHARMM comment 
+
+!set the environment variables for TURBOMOLE
+
+!qturboexe points to the "turbo.py" script that executes TURBOMOLE
+envi qturboexe "/home/crowley/ct/charmm-turbomole-examples/qmmm_protein/data/turbo.py"
+
+!"qturbooutpath" is the directory that includes "coord", "point_charges", and "gradient" files that are 
+!copied back and forth between CHARMM and TURBOMOLE
+envi qturbooutpath  "/home/crowley/ct/charmm-turbomole-examples/qmmm_protein/turbodir"
+
+!"qturboinpath" includes the input files for TURBOMOLE, e.g. control, basis, ...
+envi qturboinpath "/home/crowley/ct/charmm-turbomole-examples/qmmm_protein/data"
+
+
+! this controls the error level
+! up to -5 for debugging 
+
+BOMBLEV -2
+
+! Read topology and parameter files
+! create variable a, b, c 
+
+set a "charmm_input/top_all22_prot.rtf"
+set b "charmm_input/par_all22_prot.prm"
+set c "charmm_input/toppar_water_ions.str"
+
+! read in a, b, c
+read rtf card name @a
+
+read para card flex name @b
+
+! append the nucleic acid parameters
+read para card flex append name @c
+
+! read in your own parameters and topology
+!OPEN UNIT 1 READ CARD NAME "your_top.rtf"
+!READ RTF CARD UNIT 1 append
+!CLOSE UNIT 1
+
+!OPEN UNIT 1 READ CARD NAME "your_param.prm"
+!READ PARA CARD UNIT 1 append flex
+!CLOSE UNIT 1
+
+
+! read in parameters and topology for link atoms
+
+OPEN UNIT 1 READ CARD NAME "charmm_input/qqh.rtf"
+READ RTF CARD UNIT 1 append
+CLOSE UNIT 1
+
+OPEN UNIT 1 READ CARD NAME "charmm_input/qqh.prm"
+READ PARA CARD UNIT 1 append flex
+CLOSE UNIT 1
+
+!stop
+
+! read in protein sement PROA 
+open read card unit 10 name "charmm_input/test_proa.pdb"
+read sequence pdb unit 10
+generate PROA setup warn first NTER last CTER
+
+read coor pdb  unit 10 resid
+
+
+! read in water segment WATA
+open read card unit 10 name "charmm_input/test_wata.pdb"
+read sequence pdb unit 10
+generate WATA setup warn noangle nodihedral
+
+read coor pdb  unit 10 resid
+
+
+! read in sodium ions 
+! (not in this example)
+
+!open read card unit 10 name "charmm_input/sod.pdb"
+!read sequence pdb unit 10
+!generate IO1 setup warn noangle nodihedral
+
+!read coor pdb  unit 10 resid
+
+! read in chloride ions
+! (not exist in this example)
+
+!open read card unit 10 name "charmm_input/cla.pdb"
+!read sequence pdb unit 10
+!generate IO2 setup warn noangle nodihedral
+
+!read coor pdb  unit 10 resid
+
+
+! print out pdb structure
+open write card unit 10 name "charmm_output/test_all.pdb"
+write coor pdb  unit 10
+
+! start from the  coordinates of 
+! a previous run 
+!open read unit 22 card name "charmm_input/mini_all.crd"
+!read coor unit 22 card
+
+!stop
+
+! if you have created a crd and psf
+! you can just read in that instead 
+! of creating your structure in CHARMM - 
+! as done above  
+! note - charmm reads the charmm format psf
+! not the xplor format, 
+! which is created by e.g. psfgen in vmd for NAMD
+
+!OPEN UNIT 31 READ CARD NAME  "charmm_input/structure.psf"
+!READ PSF CARD UNIT 31
+!CLOSE UNIT 31
+
+!OPEN UNIT 31 READ CARD NAME  "charmm_input/structure.crd"
+!READ COOR CARD UNIT 31
+!CLOSE UNIT 31
+
+! can be used for creating hydrogen
+!ic param
+!ic build
+!prnlev 0
+!hbuild sele hydr end
+!prnlev 5
+ 	
+! make a classical energy evaluation
+ENERGY 
+
+! create a link atoms between CB and CA of
+! resid 43 
+! order:  qm atom - mm atom 
+addlinkatom QQH1 PROA 43 CB  PROA 43 CA
+
+define qm sele -
+atom PROA 43 CB  -
+.or. atom PROA 43 HB1 -
+.or. atom PROA 43 HB2 -
+.or. atom PROA 43 CG  -
+.or. atom PROA 43 HG  -
+.or. atom PROA 43 CD1 -
+.or. atom PROA 43 HD11 -
+.or. atom PROA 43 HD12 -
+.or. atom PROA 43 HD13 -
+.or. atom PROA 43 CD2 -
+.or. atom PROA 43 HD21 -
+.or. atom PROA 43 HD22 -
+.or. atom PROA 43 HD23 -
+show end
+
+! defines the direction of the link atom
+! order lonepair : qm atom -  mm atom
+
+lonepair colinear scaled -.7261 -
+sele type QQH1 show end sele atom PROA 43 CB  show end sele atom PROA 43 CA show end
+
+print coord sele qm .or. atom * * QQH* end
+
+! 1) Run first until here
+! 2) Prepare define for TURBOMOLE
+!    in the data directory 
+! 3) make a single point in data
+!stop
+
+! 4) after steps 1-3, 
+!   continue by removing the "stop" above
+
+! fix all except the qm region
+!cons fix sele all .and. .not. qm end
+!cons fix sele all .and. .not. (.byres. ((SEGID PROA .and. RESID 43) .around. 5)) show end
+
+! scale the mass of link atoms to 1.008 
+
+scalar mass show select type qq* show end
+scalar mass set  1.008000 select type qq* show end
+scalar mass show select type qq* show end
+
+! define non-bonded
+
+NBOND -
+    atom   cdiel  eps 1.0 -               ! Electrostatics
+    vatom  vswitch        -               ! VdW
+    elec   switch         -               ! Elec
+    ctonnb 100.0 ctofnb 120.0  cutnb 140.0
+
+! this activates turbomole 
+qturbo remove sele qm end
+
+!energy evalutation 
+!ENERGY 
+
+! write minimzations trajectory
+open write unit 41 file name "optimize-final.dcd"
+
+! perform geometry optimiztions with 
+! Adopted Basis Newton-Raphson for 500 setps
+! or until tolg and tole are 0.0006 (kcal/mol)
+
+mini abnr nstep 500 nprint 1 tolg 0.0006 tole 0.0006 IUNCrd 41 NSAVC 1
+
+open write card unit 10 name "charmm_output/minimized.pdb"
+
+write coor pdb  unit 10
+* minimized
+* 
+    
+open write card unit 10 name "charmm_output/minimized.crd"
+write coor unit 10 card
+* minimized
+* 
+     
+open write unit 10 card name "charmm_output/minimized.psf"
+write psf  unit 10 card
+* minimized
+*  
+
+stop 
+ 
+
+OPEN UNIT 44 write   FORMatted NAME "charmm_output/dynamics.res"
+OPEN UNIT 42 write UNFORMatted NAME "charmm_output/dynamics.dcd"
+open write unit 31 card name "charmm_output/dynamics.dat"
+open unit 20 write unform name "charmm_output/velocities.trj"
+
+! define STEPS=500
+
+set STEP 500
+
+SCALAR FBETA SET 8.0 select all end
+
+dynamics lang leap start -
+         timestep 0.001       - ! timestep in picoseconds
+         nstep @STEP          - ! number of steps and energy evaluations
+         nprint 1             - ! step frequency for writing in kunit and pr energy on unit 6
+         iunwri 44            - ! unit to write restart file
+         iunrea -1            - ! unit to read restart file
+         iuncrd 42            - ! unit to write coordinates (unformatted)
+         iunvel 20            - ! unit to write velocities out to
+         kunit 31             - ! unit to write energy and temp inforamtion out to file
+         iprfrq 20             - ! frequency for avg and rms energy
+         firstt 310.          - ! initial T for velocity assignments
+         tstruc 310.          - ! initial T for velocity assignments
+         finalt 310.          - ! final T
+         tbath 310.           - ! temperature of heat bath
+         iasors 1             - ! asgn (NOT scale) veldur heat/equil (.ne. 0 
+
+
+! read in from where you started
+! the restart file is define in unit 11 
+
+OPEN UNIT 11 read    FORMatted NAME "charmm_output/dynamics.res"
+OPEN UNIT 44 write   FORMatted NAME "charmm_output/dynamics2.res"
+OPEN UNIT 42 write UNFORMatted NAME "charmm_output/dynamics2.dcd"
+open write unit 31 card name "charmm_output/dynamics2.dat"
+open unit 20 write unform name "charmm_output/dynamics2.trj"
+
+! run 500 more
+set STEP 500
+
+SCALAR FBETA SET 8.0 select all end
+
+dynamics lang leap RESTRT -
+         timestep 0.001       - ! timestep in picoseconds
+         nstep @STEP          - ! number of steps and energy evaluations
+         nprint 1             - ! step frequency for writing in kunit and pr energy on unit 6
+         iunwri 44            - ! unit to write restart file
+         iunrea 11            - ! unit to read restart file 
+         iuncrd 42            - ! unit to write coordinates (unformatted)
+         iunvel 20            - ! unit to write velocities out to
+         kunit 31             - ! unit to write energy and temp inforamtion out to file
+         iprfrq 20             - ! frequency for avg and rms energy
+         firstt 310.          - ! initial T for velocity assignments
+         tstruc 310.          - ! initial T for velocity assignments
+         finalt 310.          - ! final T
+         tbath 310.           - ! temperature of heat bath
+         iasors 1             - ! asgn (NOT scale) veldur heat/equil (.ne. 0 = asgn; .eq. 0 = scale)
+         iasvel 1             - ! use gaussian distrib of vel (.gt. 0 =gaussian ; .lt. 0 = uniform)
+         nsavc 1              - ! freq for writing coordinates
+         nsavv 1              - ! freq for writing velocities
+         isvfrq 100           - ! frequency for writing restart files
+         ihtfrq 0             - ! frequency for heating steps during the dynamics
+         ieqfrq 0             - ! frequency for scaling velocities during heating
+         inbfrq 1             - ! lists updated when necessary (heuristic test)
+         ihbfrq 0             - ! frequency for updating hydrogen bond list
+         ntrfrq 0             - ! step freq for stopping rotation and translation
+         echeck 100000000.0   - ! max variation of energy step-to-step
+         ichecw 0               ! check to see if avg. temp. lies w/temp range (0 = do not check)
+
+
+OPEN UNIT 1 WRITE CARD NAME "charmm_output/dynamics2.pdb"
+WRITE COOR PDB UNIT 1
+* pdb file
+*
+CLOSE UNIT 1
+
+OPEN UNIT 1 WRITE CARD NAME "charmm_output/dynamics2.crd"
+WRITE COOR CARD UNIT 1
+* crd file
+*
+CLOSE UNIT 1
+
+open write unit 10 card name "charmm_output/dynamics2.psf"
+write psf  unit 10 card
+* dynamics
+* 
+
+stop
+
+
+

@@ -1,0 +1,53 @@
+* ----
+* Built parameters for QQH link atoms
+*    by user AGKAILA
+* ----
+*
+
+!******************************
+! QQH link  atoms
+!******************************
+ATOMS
+MASS   101 QQH1   1.00800 !
+MASS   102 QQH2   1.00800 !
+MASS   103 QQH3   1.00800 !
+MASS   104 QQH4   1.00800 !
+MASS   105 QQH5   1.00800 !
+MASS   106 QQH6   1.00800 !
+MASS   107 QQH7   1.00800 !
+MASS   108 QQH8   1.00800 !
+MASS   109 QQH9   1.00800 !
+
+BONDS
+QQH1 CT1     0.000     1.0000 !
+QQH1 CT2     0.000     1.0000 !
+QQH1 CT2A    0.000     1.0000 !
+QQH1 C       0.000     1.0000 !
+QQH1 NH1     0.000     1.0000 !
+ANGLES
+QQH1 CT2  CT1  0.000     1.0000 ! 
+QQH1 CT2  C    0.000     1.0000 ! 
+QQH1 CT2  NH1  0.000     1.0000 !
+QQH1 CT2A CT1  0.000     1.0000 ! 
+QQH1 C    CT1  0.000     1.0000 ! 
+QQH1 NH1  CT1  0.000     1.0000 ! 
+DIHEDRAL
+
+NONBONDED nbxmod  5 atom cdiel shift vatom vdistance vswitch -
+cutnb 14.0 ctofnb 12.0 ctonnb 10.0 eps 1.0 e14fac 1.0 wmin 1.5
+
+!**************************************************************
+!                                               QQH
+!**************************************************************
+QQH1   0.000000   0.000000     0.000000 ! Link Atom
+QQH2   0.000000   0.000000     0.000000 ! Link Atom
+QQH3   0.000000   0.000000     0.000000 ! Link Atom
+QQH4   0.000000   0.000000     0.000000 ! Link Atom
+QQH5   0.000000   0.000000     0.000000 ! Link Atom
+QQH6   0.000000   0.000000     0.000000 ! Link Atom
+QQH7   0.000000   0.000000     0.000000 ! Link Atom
+QQH8   0.000000   0.000000     0.000000 ! Link Atom
+QQH9   0.000000   0.000000     0.000000 ! Link Atom
+                ! 
+END
+

@@ -1,0 +1,46 @@
+#!/bin/bash -l
+#SBATCH -N 1   # Number of nodes, HAS TO BE 1
+#SBATCH -n 4   # Number of CPUs, max 32
+#SBATCH -J qmmm
+#SBATCH -p medium
+#SBATCH -e jobfile.err
+#SBATCH -o jobfile.out
+#SBATCH --mem-per-cpu=2000
+#### start of jobscript
+
+SDIR=`pwd`
+ulimit -s unlimited
+
+echo "SDIR is   :" $SDIR
+echo "SLURM_JOB_ID is:" $SLURM_JOB_ID
+echo "Node used :" $SLURM_NODELIST 
+echo "Cores used:" $SLURM_NPROCS
+
+export HOSTS_FILE=$SDIR/turbomole.machines
+rm -f $HOSTS_FILE
+srun hostname > $HOSTS_FILE
+
+module load turbomole
+module load charmm/openmpi/c38b1_QT
+
+# Make a tempdir on /local disk:
+export TURBOTMPDIR=/local/$USER/$SLURM_JOB_ID
+mkdir -p $TURBOTMPDIR
+
+# Define name of CHARMM input file:
+CHARMMFILE=mycharm.inp
+
+# Change TM path settings in the CHARMM input file automatically
+#   qturboexe     -> SDIR/turbo.py
+#   qturbooutpath -> SDIR/TURBODIR
+#   qturboinpath  -> SDIR/DATA
+sed -i     "s:^envi qturboexe.*:envi qturboexe \"${SDIR}/turbo.py\":"     $CHARMMFILE
+sed -i "s:^envi qturbooutpath.*:envi qturbooutpath \"${SDIR}/turbodir\":" $CHARMMFILE
+sed -i  "s:^envi qturboinpath.*:envi qturboinpath \"${SDIR}/data\":"      $CHARMMFILE
+
+# Run CHARMM:
+charmm < $CHARMMFILE > turbo-charmm.out
+
+rm -rf $TURBOTMPDIR
+
+
