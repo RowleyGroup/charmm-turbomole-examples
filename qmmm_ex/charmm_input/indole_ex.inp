@@ -54,6 +54,10 @@ MMFP
   droff 13.0  select type OH2 end
 END
 
+TPCONTROL NTHER 2  NSTEP 50  -
+        THER 1  TREF 298.15  TAU  0.1    SELECT .not. type D* END  -
+        THER 2  TREF 1.0     TAU  0.001  SELECT TYPE D* END
+
 tpcontrol nther 2 nhgam 5.0 nhgamd 10.0 -
     ther 1 tref 298.15 lang sele .not. type D* end -
     ther 2 tref 1.0 lang sele type D* end
