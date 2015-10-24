@@ -76,9 +76,14 @@ shake bonh -
     select .not. type D* end - 
     nofast
 
-tpcontrol nther 2 nhgam 5.0 nhgamd 10.0 -
-    ther 1 tref 298.15 lang sele .not. type D* end -
-    ther 2 tref 1.0 lang sele type D* end
+!tpcontrol nther 2 nhgam 5.0 nhgamd 10.0 -
+!    ther 1 tref 298.15 lang sele .not. type D* end -
+!    ther 2 tref 1.0 lang sele type D* end
+
+TPCONTROL NTHER 3  NSTEP 50 nhgam 1.0 nhgamd 2.0 -
+        THER 1  TREF 298.15  lang SELECT segid ION .or. segid IN END  -
+        THER 2  TREF 298.15  lang SELECT .NOT. TYPE D* .and. segid OUT END  -
+        THER 3  TREF 1.0     lang SELECT TYPE D* .and. segid OUT END
 
 open write unit 51 card name ./charmm_output/md.res
 open write unit 52 card name ./charmm_output/md.dat
