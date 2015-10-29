@@ -61,8 +61,8 @@ END
 !        THER 2  TREF 1.0     TAU  0.001  SELECT TYPE D* END
 
 tpcontrol nther 3 nhgam 5.0 nhgamd 10.0 -
-    ther 1 tref 298.15 lang sele (segid ION .or. segid IN) end -
-    ther 2 tref 298.15 lang sele segid OUT .and. .not. type D* end -
+    ther 1 tref 298.15 lang sele segid SOL end -
+    ther 2 tref 298.15 lang sele segid WAT .and. .not. type D* end -
     ther 3 tref 1.0 lang sele type D* end
 
 open write unit 51 card name ./charmm_output/md.res
