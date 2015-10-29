@@ -20,7 +20,7 @@ stream ./charmm_input/toppar_qm.str
 READ sequence INDOQ 1
 generate SOL setup first none last none 
 READ sequence SWM4 451
-generate WAT setup first none last none  noangle nodihedral DRUDE DMASS 0.4 HYPE HORD 4 KHYP 40000 RHYP 0.2
+generate WAT setup first none last none  noangle nodihedral DRUDE DMASS 0.4 
 
 read coor card name ./charmm_input/indole.crd
 
@@ -45,6 +45,8 @@ shake bonh -
     select .not. type D*  .and. .not. segid SOL  end - 
     nofast
 
+DrudeHardWall L_WALL 0.2
+
 cons hmcm force 5.0 refx 0.0 refy 0.0 refz 0.0 select segid SOL end
 
 MMFP
@@ -54,13 +56,14 @@ MMFP
   droff 13.0  select type OH2 end
 END
 
-TPCONTROL NTHER 2  NSTEP 50  -
-        THER 1  TREF 298.15  TAU  0.1    SELECT .not. type D* END  -
-        THER 2  TREF 1.0     TAU  0.001  SELECT TYPE D* END
+!TPCONTROL NTHER 2  NSTEP 50  -
+!        THER 1  TREF 298.15  TAU  0.1    SELECT .not. type D* END  -
+!        THER 2  TREF 1.0     TAU  0.001  SELECT TYPE D* END
 
-tpcontrol nther 2 nhgam 5.0 nhgamd 10.0 -
-    ther 1 tref 298.15 lang sele .not. type D* end -
-    ther 2 tref 1.0 lang sele type D* end
+tpcontrol nther 3 nhgam 5.0 nhgamd 10.0 -
+    ther 1 tref 298.15 lang sele (segid ION .or. segid IN) end -
+    ther 2 tref 298.15 lang sele segid OUT .and. .not. type D* end -
+    ther 3 tref 1.0 lang sele type D* end
 
 open write unit 51 card name ./charmm_output/md.res
 open write unit 52 card name ./charmm_output/md.dat

@@ -39,6 +39,8 @@ NBOND -
 
 faster off
 
+DrudeHardWall L_WALL 0.2
+
 coor stat select segid ION end
 coor trans XDIR -?XAVE YDIR -?YAVE ZDIR -?ZAVE
 
